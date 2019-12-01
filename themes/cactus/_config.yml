@@ -17,7 +17,7 @@ nav:
   home: /
   about: /about/
   articles: /archives/
-  projects: https://github.com/mywentu
+  projects: https://github.com/fajiaopaopao
 
 
 # Links to your social media accounts.
@@ -25,7 +25,7 @@ nav:
 # (see https://fontawesome.com/icons?d=gallery&s=brands);
 # only 'mail' is an exception.
 social_links:
-  github: http://github.com/mywentu
+  github: http://github.com/fajiaopaopao
   #twitter: /
   #facebook: /
   #linkedin: /
