@@ -80,4 +80,9 @@ theme_config:
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: cos
+  appId: appId
+  secretId: secretId
+  secretKey: secretKey
+  bucket: bucket
+  region: region
