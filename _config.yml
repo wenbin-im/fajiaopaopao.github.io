@@ -84,5 +84,5 @@ deploy:
   appId: appId
   secretId: secretId
   secretKey: secretKey
-  bucket: bucket
-  region: region
+  bucket: hexo-deployer-cos-1251671242
+  region: ap-beijing
