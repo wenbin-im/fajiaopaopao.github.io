@@ -82,7 +82,7 @@ theme_config:
 deploy:
   type: cos
   appId: 1251671242
-  SecretId: ${{ SecretId }}
-  SecretKey: ${{ SecretKey }}
+  secretId: ${{ secretId }}
+  secretKey: ${{ secretId }}
   bucket: hexo-deployer-cos-1251671242
   region: ap-beijing
