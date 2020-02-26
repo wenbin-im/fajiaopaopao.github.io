@@ -81,7 +81,7 @@ theme_config:
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: cos
-  secretId: $SecretId
-  secretKey: $SecretKey
+  secretId: ${SecretId}
+  secretKey: ${SecretKey}
   bucket: hexo-deployer-cos-1251671242
   region: ap-beijing
