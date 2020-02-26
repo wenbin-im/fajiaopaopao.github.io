@@ -7,6 +7,8 @@ branches:
   only:
     - hexo # build hexo branch only
 script:
+  - sed -i "s/SecretId/${SecretId}/" _config.yml
+  - sed -i "s/SecretKey/${SecretKey}/" _config.yml
   - hexo generate # generate static files
   - hexo deploy # deploy static files
 deploy:
