@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="前言在我们日常中后台的业务开发中，&amp;lt;table&amp;gt;作为展示数据项的一个常用组件，绝对占据了代码中的半壁江山，其中table，一般我们需要用到一下几个部分：  table-head 显示表头 table-body 显示表格内容 支持固定行列到左侧或者右侧 支持多选行  created123456created () &amp;#123;  if (!this.context) this.curre">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iview 源码分析之 Form 组件">
+<meta property="og:url" content="https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/index.html">
+<meta property="og:site_name" content="发酵">
+<meta property="og:description" content="前言在我们日常中后台的业务开发中，&amp;lt;table&amp;gt;作为展示数据项的一个常用组件，绝对占据了代码中的半壁江山，其中table，一般我们需要用到一下几个部分：  table-head 显示表头 table-body 显示表格内容 支持固定行列到左侧或者右侧 支持多选行  created123456created () &amp;#123;  if (!this.context) this.curre">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-04-07T11:27:38.623Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iview 源码分析之 Form 组件">
+<meta name="twitter:description" content="前言在我们日常中后台的业务开发中，&amp;lt;table&amp;gt;作为展示数据项的一个常用组件，绝对占据了代码中的半壁江山，其中table，一般我们需要用到一下几个部分：  table-head 显示表头 table-body 显示表格内容 支持固定行列到左侧或者右侧 支持多选行  created123456created () &amp;#123;  if (!this.context) this.curre">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>iview 源码分析之 Form 组件</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/fajiaopaopao">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/04/07/图片上传踩坑记录/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/04/07/iview 源码分析之Form组件/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/&text=iview 源码分析之 Form 组件"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/&title=iview 源码分析之 Form 组件"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/&is_video=false&description=iview 源码分析之 Form 组件"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=iview 源码分析之 Form 组件&body=Check out this article: https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/&title=iview 源码分析之 Form 组件"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/&title=iview 源码分析之 Form 组件"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/&title=iview 源码分析之 Form 组件"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/&title=iview 源码分析之 Form 组件"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/&name=iview 源码分析之 Form 组件&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#created"><span class="toc-number">2.</span> <span class="toc-text">created</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mounted"><span class="toc-number">3.</span> <span class="toc-text">mounted</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#beforeDestroy"><span class="toc-number">4.</span> <span class="toc-text">beforeDestroy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Iview-Table使用实例"><span class="toc-number">4.1.</span> <span class="toc-text">Iview Table使用实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#columns-props-分析"><span class="toc-number">4.2.</span> <span class="toc-text">columns props 分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#data-props-分析"><span class="toc-number">4.3.</span> <span class="toc-text">data props 分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#table-template分析"><span class="toc-number">4.4.</span> <span class="toc-text">table template分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#table-table-tr"><span class="toc-number">4.5.</span> <span class="toc-text">table table-tr</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#table-slot"><span class="toc-number">4.6.</span> <span class="toc-text">table slot</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        iview 源码分析之 Form 组件
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="name">发酵</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2020-04-07T11:27:38.623Z" itemprop="datePublished">2020-04-07</time>
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在我们日常中后台的业务开发中，<code>&lt;table&gt;</code>作为展示数据项的一个常用组件，绝对占据了代码中的半壁江山，其中table，一般我们需要用到一下几个部分：</p>
+<ul>
+<li>table-head 显示表头</li>
+<li>table-body 显示表格内容</li>
+<li>支持固定行列到左侧或者右侧</li>
+<li>支持多选行</li>
+</ul>
+<h3 id="created"><a href="#created" class="headerlink" title="created"></a>created</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">created () &#123;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="keyword">this</span>.context) <span class="keyword">this</span>.currentContext = <span class="keyword">this</span>.$parent;</span><br><span class="line">  <span class="keyword">this</span>.showSlotHeader = <span class="keyword">this</span>.$slots.header !== <span class="literal">undefined</span>;</span><br><span class="line">  <span class="keyword">this</span>.showSlotFooter = <span class="keyword">this</span>.$slots.footer !== <span class="literal">undefined</span>;</span><br><span class="line">  <span class="keyword">this</span>.rebuildData = <span class="keyword">this</span>.makeDataWithSortAndFilter();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>保存对父组件的引用</li>
+<li>控制slot Header &amp; Footer 是否显示</li>
+<li>初始化一份data数据</li>
+</ul>
+<h3 id="mounted"><a href="#mounted" class="headerlink" title="mounted"></a>mounted</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mounted () &#123;</span><br><span class="line">  <span class="keyword">this</span>.handleResize();</span><br><span class="line">  <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">this</span>.ready = <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">  on(<span class="built_in">window</span>, <span class="string">'resize'</span>, <span class="keyword">this</span>.handleResize);</span><br><span class="line">  <span class="keyword">this</span>.observer = elementResizeDetectorMaker();</span><br><span class="line">  <span class="keyword">this</span>.observer.listenTo(<span class="keyword">this</span>.$el, <span class="keyword">this</span>.handleResize);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.$on(<span class="string">'on-visible-change'</span>, (val) =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (val) &#123;</span><br><span class="line">          <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">              <span class="keyword">this</span>.handleResize();</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>绑定resize相关的事件，进行动态的伸缩</li>
+</ul>
+<h3 id="beforeDestroy"><a href="#beforeDestroy" class="headerlink" title="beforeDestroy"></a>beforeDestroy</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">beforeDestroy () &#123;</span><br><span class="line">  off(<span class="built_in">window</span>, <span class="string">'resize'</span>, <span class="keyword">this</span>.handleResize);</span><br><span class="line">  <span class="keyword">this</span>.observer.removeListener(<span class="keyword">this</span>.$el, <span class="keyword">this</span>.handleResize);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>卸载绑定的相关事件</li>
+</ul>
+<h4 id="Iview-Table使用实例"><a href="#Iview-Table使用实例" class="headerlink" title="Iview Table使用实例"></a>Iview Table使用实例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;Table :columns=&quot;columns1&quot; :data=&quot;data1&quot;&gt;&lt;/Table&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      columns1: [</span><br><span class="line">        &#123;</span><br><span class="line">          title: &apos;Name&apos;,</span><br><span class="line">          key: &apos;name&apos;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          title: &apos;Age&apos;,</span><br><span class="line">          key: &apos;age&apos;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          title: &apos;Address&apos;,</span><br><span class="line">          key: &apos;address&apos;</span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">      data1: [</span><br><span class="line">        &#123;</span><br><span class="line">          name: &apos;John Brown&apos;,</span><br><span class="line">          age: 18,</span><br><span class="line">          address: &apos;New York No. 1 Lake Park&apos;,</span><br><span class="line">          date: &apos;2016-10-03&apos;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="columns-props-分析"><a href="#columns-props-分析" class="headerlink" title="columns props 分析"></a>columns props 分析</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">watch: &#123;</span><br><span class="line">  columns: &#123;</span><br><span class="line">  handler () &#123;</span><br><span class="line">      <span class="comment">// todo 这里有性能问题，可能是左右固定计算属性影响的</span></span><br><span class="line">      <span class="keyword">const</span> colsWithId = <span class="keyword">this</span>.makeColumnsId(<span class="keyword">this</span>.columns);  </span><br><span class="line">      <span class="keyword">this</span>.allColumns = getAllColumns(colsWithId);</span><br><span class="line">      <span class="keyword">this</span>.cloneColumns = <span class="keyword">this</span>.makeColumns(colsWithId);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">this</span>.columnRows = <span class="keyword">this</span>.makeColumnRows(<span class="literal">false</span>, colsWithId);</span><br><span class="line">      <span class="keyword">this</span>.leftFixedColumnRows = <span class="keyword">this</span>.makeColumnRows(<span class="string">'left'</span>, colsWithId);</span><br><span class="line">      <span class="keyword">this</span>.rightFixedColumnRows = <span class="keyword">this</span>.makeColumnRows(<span class="string">'right'</span>, colsWithId);</span><br><span class="line">      <span class="keyword">this</span>.rebuildData = <span class="keyword">this</span>.makeDataWithSortAndFilter();</span><br><span class="line">      <span class="keyword">this</span>.handleResize();</span><br><span class="line">    &#125;,</span><br><span class="line">    deep: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Table中对column属性设置了<em>watch deep</em>监听</li>
+<li>makeColumnsId 为column设置了一个随机6位的字符串标识：<em>__id</em></li>
+<li>getAllColumns 对原有的column进行了一次拷贝</li>
+<li>makeColumns 对每个column设置相关的默认值</li>
+<li>makeColumnRows 设置左侧、右侧固定的列</li>
+<li>makeDataWithSortAndFilter 支持filters相关的配置</li>
+<li>handleResize 处理行列的宽度</li>
+</ul>
+<h4 id="data-props-分析"><a href="#data-props-分析" class="headerlink" title="data props 分析"></a>data props 分析</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  handler () &#123;</span><br><span class="line">    <span class="keyword">const</span> oldDataLen = <span class="keyword">this</span>.rebuildData.length;</span><br><span class="line">    <span class="keyword">this</span>.objData = <span class="keyword">this</span>.makeObjData();</span><br><span class="line">    <span class="keyword">this</span>.rebuildData = <span class="keyword">this</span>.makeDataWithSortAndFilter();</span><br><span class="line">    <span class="keyword">this</span>.handleResize();</span><br><span class="line">    <span class="keyword">if</span> (!oldDataLen) &#123;</span><br><span class="line">        <span class="keyword">this</span>.fixedHeader();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// here will trigger before clickCurrentRow, so use async</span></span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.cloneData = deepCopy(<span class="keyword">this</span>.data);</span><br><span class="line">    &#125;, <span class="number">0</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  deep: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>makeObjData 支持数据的高亮、选择、展开/收起 效果</li>
+<li>makeDataWithSortAndFilter 根据columns 过滤 data数据</li>
+<li>cloneData 对传递的data进行深拷贝</li>
+</ul>
+<p>上述有一个坑：vue table对传入的data进行了一次深拷贝，重新生成了数据<code>rebildData</code>，导致_rowKey每次递增，导致diff算法的优化失效，每次相关的数据需要重新render组件！！！其目的是为了引用数据之前修改，出现的的问题不容易追查。</p>
+<h4 id="table-template分析"><a href="#table-template分析" class="headerlink" title="table template分析"></a>table template分析</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table-body</span></span></span><br><span class="line"><span class="tag">  <span class="attr">ref</span>=<span class="string">"tbody"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:draggable</span>=<span class="string">"draggable"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:prefix-cls</span>=<span class="string">"prefixCls"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:styleObject</span>=<span class="string">"tableStyle"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:columns</span>=<span class="string">"cloneColumns"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:data</span>=<span class="string">"rebuildData"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:row-key</span>=<span class="string">"rowKey"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:columns-width</span>=<span class="string">"columnsWidth"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:obj-data</span>=<span class="string">"objData"</span>&gt;</span><span class="tag">&lt;/<span class="name">table-body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">table</span> <span class="attr">cellspacing</span>=<span class="string">"0"</span> <span class="attr">cellpadding</span>=<span class="string">"0"</span> <span class="attr">border</span>=<span class="string">"0"</span> <span class="attr">:style</span>=<span class="string">"styleObject"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">colgroup</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">col</span> <span class="attr">v-for</span>=<span class="string">"(column, index) in columns"</span> <span class="attr">:width</span>=<span class="string">"setCellWidth(column)"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">colgroup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tbody</span> <span class="attr">:class</span>=<span class="string">"[prefixCls + '-tbody']"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-for</span>=<span class="string">"(row, index) in data"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">table-tr</span></span></span><br><span class="line"><span class="tag">          <span class="attr">:draggable</span>=<span class="string">"draggable"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">:row</span>=<span class="string">"row"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">:key</span>=<span class="string">"rowKey ? row._rowKey : index"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">:prefix-cls</span>=<span class="string">"prefixCls"</span></span></span><br><span class="line"><span class="tag">          @<span class="attr">mouseenter.native.stop</span>=<span class="string">"handleMouseIn(row._index)"</span></span></span><br><span class="line"><span class="tag">          @<span class="attr">mouseleave.native.stop</span>=<span class="string">"handleMouseOut(row._index)"</span></span></span><br><span class="line"><span class="tag">          @<span class="attr">click.native</span>=<span class="string">"clickCurrentRow(row._index)"</span></span></span><br><span class="line"><span class="tag">          @<span class="attr">dblclick.native.stop</span>=<span class="string">"dblclickCurrentRow(row._index)"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">td</span> <span class="attr">v-for</span>=<span class="string">"column in columns"</span> <span class="attr">:class</span>=<span class="string">"alignCls(column, row)"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">table-cell</span></span></span><br><span class="line"><span class="tag">              <span class="attr">:fixed</span>=<span class="string">"fixed"</span></span></span><br><span class="line"><span class="tag">              <span class="attr">:prefix-cls</span>=<span class="string">"prefixCls"</span></span></span><br><span class="line"><span class="tag">              <span class="attr">:row</span>=<span class="string">"row"</span></span></span><br><span class="line"><span class="tag">              <span class="attr">:key</span>=<span class="string">"column._columnKey"</span></span></span><br><span class="line"><span class="tag">              <span class="attr">:column</span>=<span class="string">"column"</span></span></span><br><span class="line"><span class="tag">              <span class="attr">:natural-index</span>=<span class="string">"index"</span></span></span><br><span class="line"><span class="tag">              <span class="attr">:index</span>=<span class="string">"row._index"</span></span></span><br><span class="line"><span class="tag">              <span class="attr">:checked</span>=<span class="string">"rowChecked(row._index)"</span></span></span><br><span class="line"><span class="tag">              <span class="attr">:disabled</span>=<span class="string">"rowDisabled(row._index)"</span></span></span><br><span class="line"><span class="tag">              <span class="attr">:expanded</span>=<span class="string">"rowExpanded(row._index)"</span></span></span><br><span class="line"><span class="tag">            &gt;</span><span class="tag">&lt;/<span class="name">table-cell</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">table-tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span> <span class="attr">v-if</span>=<span class="string">"rowExpanded(row._index)"</span> <span class="attr">:class</span>=<span class="string">"&#123;[prefixCls + '-expanded-hidden']: fixed&#125;"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span> <span class="attr">:colspan</span>=<span class="string">"columns.length"</span> <span class="attr">:class</span>=<span class="string">"prefixCls + '-expanded-cell'"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">Expand</span> <span class="attr">:key</span>=<span class="string">"rowKey ? row._rowKey : index"</span> <span class="attr">:row</span>=<span class="string">"row"</span> <span class="attr">:render</span>=<span class="string">"expandRender"</span> <span class="attr">:index</span>=<span class="string">"row._index"</span>&gt;</span><span class="tag">&lt;/<span class="name">Expand</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>template中承载数据展示最重要的组件，传递了table中处理的数据。其中table-body 根据数据支持了对列相关的事件处理：<code>rowChecked</code>、<code>rowDisabled</code>、<code>rowExpanded</code>…</p>
+<h4 id="table-table-tr"><a href="#table-table-tr" class="headerlink" title="table table-tr"></a>table table-tr</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span> <span class="attr">:class</span>=<span class="string">"rowClasses(row._index)"</span> <span class="attr">:draggable</span>=<span class="string">"draggable"</span> @<span class="attr">dragstart</span>=<span class="string">"onDrag($event,row._index)"</span> @<span class="attr">drop</span>=<span class="string">"onDrop($event,row._index)"</span> @<span class="attr">dragover</span>=<span class="string">"allowDrop($event)"</span> <span class="attr">v-if</span>=<span class="string">"draggable"</span>&gt;</span><span class="tag">&lt;<span class="name">slot</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span> <span class="attr">:class</span>=<span class="string">"rowClasses(row._index)"</span> <span class="attr">v-else</span>&gt;</span><span class="tag">&lt;<span class="name">slot</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="undefined">        props: &#123;</span></span><br><span class="line"><span class="javascript">            row: <span class="built_in">Object</span>,</span></span><br><span class="line"><span class="javascript">            prefixCls: <span class="built_in">String</span>,</span></span><br><span class="line"><span class="javascript">            draggable: <span class="built_in">Boolean</span></span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        computed: &#123;</span></span><br><span class="line"><span class="undefined">            objData () &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> <span class="keyword">this</span>.$parent.objData;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">        methods: &#123;</span></span><br><span class="line"><span class="undefined">            onDrag (e,index) &#123;</span></span><br><span class="line"><span class="javascript">                e.dataTransfer.setData(<span class="string">'index'</span>,index);</span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">            onDrop (e,index) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">const</span> dragIndex = e.dataTransfer.getData(<span class="string">'index'</span>);</span></span><br><span class="line"><span class="javascript">                <span class="keyword">this</span>.$parent.$parent.dragAndDrop(dragIndex,index);</span></span><br><span class="line"><span class="undefined">                e.preventDefault();</span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">            allowDrop (e) &#123;</span></span><br><span class="line"><span class="undefined">                e.preventDefault();</span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">            rowClasses (_index) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> [</span></span><br><span class="line"><span class="javascript">                    <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.prefixCls&#125;</span>-row`</span>,</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">this</span>.rowClsName(_index),</span></span><br><span class="line"><span class="undefined">                    &#123;</span></span><br><span class="line"><span class="javascript">                        [<span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.prefixCls&#125;</span>-row-highlight`</span>]: <span class="keyword">this</span>.objData[_index] &amp;&amp; <span class="keyword">this</span>.objData[_index]._isHighlight,</span></span><br><span class="line"><span class="javascript">                        [<span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.prefixCls&#125;</span>-row-hover`</span>]: <span class="keyword">this</span>.objData[_index] &amp;&amp; <span class="keyword">this</span>.objData[_index]._isHover</span></span><br><span class="line"><span class="undefined">                    &#125;</span></span><br><span class="line"><span class="undefined">                ];</span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">            rowClsName (_index) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> <span class="keyword">this</span>.$parent.$parent.rowClassName(<span class="keyword">this</span>.objData[_index], _index);</span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>和上面的table-body类似，都是容器组件，对传进来的数据做展示、操作相关的处理，比较简单明了。</p>
+<h4 id="table-slot"><a href="#table-slot" class="headerlink" title="table slot"></a>table slot</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    name: <span class="string">'TableSlot'</span>,</span><br><span class="line">    functional: <span class="literal">true</span>,</span><br><span class="line">    inject: [<span class="string">'tableRoot'</span>],</span><br><span class="line">    props: &#123;</span><br><span class="line">        row: <span class="built_in">Object</span>,</span><br><span class="line">        index: <span class="built_in">Number</span>,</span><br><span class="line">        column: &#123;</span><br><span class="line">            type: <span class="built_in">Object</span>,</span><br><span class="line">            <span class="keyword">default</span>: <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    render: <span class="function">(<span class="params">h, ctx</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> h(<span class="string">'div'</span>, ctx.injections.tableRoot.$scopedSlots[ctx.props.column.slot](&#123;</span><br><span class="line">            row: ctx.props.row,</span><br><span class="line">            column: ctx.props.column,</span><br><span class="line">            index: ctx.props.index</span><br><span class="line">        &#125;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>table支持Header、Footer slot之外，还支持对column中的slot支持，其实现的基础就是在源代码的<code>slot.js</code>中，通过inject和provide 将父组件Table中的数据传递了过来。</p>
+<p>其具体的实现为一个函数式组件，通过inject的数据，进行了render达到了对表格更好的控制和展示。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/fajiaopaopao">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#created"><span class="toc-number">2.</span> <span class="toc-text">created</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mounted"><span class="toc-number">3.</span> <span class="toc-text">mounted</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#beforeDestroy"><span class="toc-number">4.</span> <span class="toc-text">beforeDestroy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Iview-Table使用实例"><span class="toc-number">4.1.</span> <span class="toc-text">Iview Table使用实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#columns-props-分析"><span class="toc-number">4.2.</span> <span class="toc-text">columns props 分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#data-props-分析"><span class="toc-number">4.3.</span> <span class="toc-text">data props 分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#table-template分析"><span class="toc-number">4.4.</span> <span class="toc-text">table template分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#table-table-tr"><span class="toc-number">4.5.</span> <span class="toc-text">table table-tr</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#table-slot"><span class="toc-number">4.6.</span> <span class="toc-text">table slot</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/&text=iview 源码分析之 Form 组件"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/&title=iview 源码分析之 Form 组件"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/&is_video=false&description=iview 源码分析之 Form 组件"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=iview 源码分析之 Form 组件&body=Check out this article: https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/&title=iview 源码分析之 Form 组件"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/&title=iview 源码分析之 Form 组件"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/&title=iview 源码分析之 Form 组件"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/&title=iview 源码分析之 Form 组件"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.ifajiao.com/2020/04/07/iview 源码分析之 Table 组件/&name=iview 源码分析之 Form 组件&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 发酵
+    <a href="http://beian.miit.gov.cn" target="_blank">湘ICP备15014688号 </a>
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/fajiaopaopao">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-131463229-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
