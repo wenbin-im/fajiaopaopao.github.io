@@ -2,6 +2,9 @@ sudo: false
 language: node_js
 node_js:
   - 10 # use nodejs v10 LTS
+before_install:
+  # Restore last modified time
+  - "git ls-files -z | while read -d '' path; do touch -d \"$(git log -1 --format=\"@%ct\" \"$path\")\" \"$path\"; done"
 cache: npm
 branches:
   only:
