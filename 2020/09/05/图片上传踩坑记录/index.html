@@ -9,12 +9,12 @@
     <meta name="description" content="前言 因为现在所在公司业务有让用户上传图片，并且希望前端压缩图片的一个流程，最近爆出少量用户上传的图片变黑错乱、0字节上传等问题，下面就记录下解决的过程。  首先我们思考的是应该用什么方式进行上传图片，目前常用的有以下几种：  利用  input 和 form 表单进行文件上传，但是缺少了对图片的灵活处理。 利用RenderFile的readAsDataURL转成base64进行上传，问题在于ba">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图片上传踩坑记录">
-<meta property="og:url" content="https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/index.html">
+<meta property="og:url" content="https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/index.html">
 <meta property="og:site_name" content="发酵">
 <meta property="og:description" content="前言 因为现在所在公司业务有让用户上传图片，并且希望前端压缩图片的一个流程，最近爆出少量用户上传的图片变黑错乱、0字节上传等问题，下面就记录下解决的过程。  首先我们思考的是应该用什么方式进行上传图片，目前常用的有以下几种：  利用  input 和 form 表单进行文件上传，但是缺少了对图片的灵活处理。 利用RenderFile的readAsDataURL转成base64进行上传，问题在于ba">
 <meta property="og:locale" content="zh-cn">
 <meta property="og:image" content="https://www.ifajiao.com/assets/2019-01-06/upload-error.jpg">
-<meta property="og:updated_time" content="2020-04-07T11:27:38.623Z">
+<meta property="og:updated_time" content="2020-09-05T07:40:33.248Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图片上传踩坑记录">
 <meta name="twitter:description" content="前言 因为现在所在公司业务有让用户上传图片，并且希望前端压缩图片的一个流程，最近爆出少量用户上传的图片变黑错乱、0字节上传等问题，下面就记录下解决的过程。  首先我们思考的是应该用什么方式进行上传图片，目前常用的有以下几种：  利用  input 和 form 表单进行文件上传，但是缺少了对图片的灵活处理。 利用RenderFile的readAsDataURL转成base64进行上传，问题在于ba">
@@ -75,7 +75,7 @@
       <ul>
         
         
-        <li><a class="icon" href="/2020/04/07/iview 源码分析之 Table 组件/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2020/09/05/iview 源码分析之 Table 组件/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -88,16 +88,16 @@
     <br>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/&text=图片上传踩坑记录"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/&is_video=false&description=图片上传踩坑记录"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=图片上传踩坑记录&body=Check out this article: https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/&name=图片上传踩坑记录&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/&text=图片上传踩坑记录"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/&is_video=false&description=图片上传踩坑记录"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=图片上传踩坑记录&body=Check out this article: https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/&name=图片上传踩坑记录&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -125,7 +125,7 @@
       </span>
       
     <div class="postdate">
-        <time datetime="2020-04-07T11:27:38.623Z" itemprop="datePublished">2020-04-07</time>
+        <time datetime="2020-09-05T07:40:33.248Z" itemprop="datePublished">2020-09-05</time>
     </div>
 
 
@@ -210,16 +210,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/&text=图片上传踩坑记录"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/&is_video=false&description=图片上传踩坑记录"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=图片上传踩坑记录&body=Check out this article: https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.ifajiao.com/2020/04/07/图片上传踩坑记录/&name=图片上传踩坑记录&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/&text=图片上传踩坑记录"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/&is_video=false&description=图片上传踩坑记录"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=图片上传踩坑记录&body=Check out this article: https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/&title=图片上传踩坑记录"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://blog.ifajiao.com/2020/09/05/图片上传踩坑记录/&name=图片上传踩坑记录&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
