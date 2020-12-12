@@ -5,7 +5,7 @@ keywords: null
 author: 发酵
 language: zh-CN
 timezone: ''
-url: 'https://blog.ifajiao.com'
+url: 'https://www.ifajiao.com'
 root: /
 permalink: ':year/:month/:day/:title/'
 permalink_defaults: null
