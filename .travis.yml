@@ -8,7 +8,7 @@ before_install:
 cache: npm
 branches:
   only:
-    - hexo # build hexo branch only
+    - hexo-5 # build hexo branch only
 script:
   - sed -i "s/SecretId/${SecretId}/" _config.yml
   - sed -i "s/SecretKey/${SecretKey}/" _config.yml
