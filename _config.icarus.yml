@@ -155,9 +155,13 @@ search:
 # Comment plugin configurations
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Comment/
 comment:
-    type: disqus
-    # Disqus shortname
-    shortname: 'fajiao-1'
+    type: gitalk
+    owner: fajiaopaopao
+    admin:
+        - fajiaopaopao
+    repo: fajiaopaopao.github.io
+    client_id: ${client_id}
+    client_secret: ${client_secret}
 # Donate plugin configurations
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Donation/
 # donates:
@@ -318,7 +322,7 @@ plugins:
     # https://tongji.baidu.com
     baidu_analytics:
         # Baidu Analytics tracking ID
-        tracking_id: 
+        tracking_id: adce612da0693f1aaa2fd6e8bda1e86a
     # Bing Webmaster Tools plugin settings
     # https://www.bing.com/toolbox/webmaster/
     bing_webmaster:
