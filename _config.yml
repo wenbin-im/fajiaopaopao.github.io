@@ -62,7 +62,8 @@ exclude: null
 ignore: null
 theme: icarus
 deploy:
-  type: cos
+  type: cos-cdn
+  cloud: tencent
   secretId: SecretId
   secretKey: SecretKey
   bucket: hexo-deployer-cos-1251671242
