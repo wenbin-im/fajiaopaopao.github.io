@@ -117,10 +117,16 @@ footer:
         湘ICP备15014688号: 'http://beian.miit.gov.cn/'
         Creative Commons:
             icon: fab fa-creative-commons
-            url: 'https://creativecommons.org/'
-        Attribution 4.0 International:
+            url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'
+        Attribution:
             icon: fab fa-creative-commons-by
-            url: 'https://creativecommons.org/licenses/by/4.0/'
+            url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'
+        # Noncommercial:
+        #     icon: fab fa-creative-commons-nc
+        #     url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'
+        # ShareAlike:
+        #     icon: fab fa-creative-commons-sa
+        #     url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'
         # Download on GitHub:
         #     icon: fab fa-github
         #     url: 'https://github.com/ppoffice/hexo-theme-icarus'
@@ -141,13 +147,16 @@ article:
     licenses:
         Creative Commons:
             icon: fab fa-creative-commons
-            url: 'https://creativecommons.org/'
+            url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'
         Attribution:
             icon: fab fa-creative-commons-by
-            url: 'https://creativecommons.org/licenses/by/4.0/'
+            url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'
         Noncommercial:
             icon: fab fa-creative-commons-nc
-            url: 'https://creativecommons.org/licenses/by-nc/4.0/'
+            url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'
+        ShareAlike:
+            icon: fab fa-creative-commons-sa
+            url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'
 # Search plugin configurations
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Search/
 search:
