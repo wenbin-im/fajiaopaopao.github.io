@@ -109,7 +109,7 @@ navbar:
     links:
         Download on GitHub:
             icon: fab fa-github
-            url: 'https://github.com/ppoffice/hexo-theme-icarus'
+            url: 'https://github.com/fajiaopaopao'
 # Page footer configurations
 footer:
     # Links to be shown on the right of the footer section
