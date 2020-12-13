@@ -23,9 +23,9 @@ thumbnail: /gallery/covers/openwrt-logo-thumbnail.png
 ## 软件工具
 - PVE镜像：https://pve.proxmox.com/wiki/Main_Page
 - iKuai固件：https://www.ikuai8.com/component/download
-- HomeLede三方固件：https://github.com/xiaoqingfengATGH/HomeLede/wiki
+- HomeLede固件：https://github.com/xiaoqingfengATGH/HomeLede/wiki
 
-> 选择使用第三方OpenWrt固件原因是：HomeLede内置内置了科学工具、AdGuard、DNS等刚需解决方案，就懒得自己去折腾了。
+> 选择使用HomeLede，而不是自行编译的原因是：HomeLede内置内置了科学工具、AdGuard、DNS等刚需解决方案，就懒得自己去折腾了。
 
 ## 功能需求
 - 科学访问：电脑、手机等设备能够无限访问外网
