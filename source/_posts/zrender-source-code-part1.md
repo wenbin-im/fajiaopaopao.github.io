@@ -20,7 +20,7 @@ ZRender是一个轻量级的Canvas类库，EChart就是在ZRender基础上建立
 
 ## 简介
 
-ZRender 是二维绘图引擎，它提供 Canvas、SVG、VML 等多种渲染方式。ZRender 也是 ECharts 的渲染器。同时文章的分析是是基于ZRender最新版5.x版本进行。
+ZRender 是二维绘图引擎，它提供 Canvas、SVG、VML 多种渲染方式。ZRender 也是 ECharts 的渲染器。注意：文章的分析是基于ZRender最新版5.x版本进行。
 
 - 文档官网：[https://ecomfe.github.io/zrender-doc/public/](https://ecomfe.github.io/zrender-doc/public/)
 - GitHub主页：[https://github.com/ecomfe/zrender](https://github.com/ecomfe/zrender)
@@ -256,11 +256,12 @@ export {default as showDebugDirtyRect} from './debug/showDebugDirtyRect';
 
 可以看到，`export.ts`的职责是用来导出模块到外部。其中包括`core`、`tool`中的工具函数方法，以及ZRender抽象出来的各种`shape`图形模块，方便以`zrender.xx`方式进行调用。
 
-像代码块的第一行注释写的：*Do not mount those modules on 'src/zrender' for better tree shaking*，相比在`src/zrender.ts`中一股脑导出和调用，`export.ts`导出的都是无副作用的函数，更加有利于构建工具对代码进行静态分析，避免ECharts打包了未实际使用的代码。
+另外，模块的第一行注释写到：*Do not mount those modules on 'src/zrender' for better tree shaking*，相比在`src/zrender.ts`中一股脑进行导出和调用，`export.ts`导出的都是无副作用的函数，更加有利于构建工具对代码进行静态分析进行Tree Shaking，避免ECharts使用ZRender时，打包了未实际使用的代码。
 
 ### ZRender的画笔 🖌
 
-前期基本工作已经介绍完了，ZRender是如何将图形绘制出来的呢？其实现在主流的2D绘制方式有两中：Canvas和SVG，那么ZRender就需要分别封装Canvas和SVG各自的API，来磨平不同绘制方式在使用时候的差异：
+前期基本工作已经介绍完了，ZRender是如何将图形绘制出来的呢？
+其实现在前端主流的2D绘制方式有两种：Canvas和SVG，那么ZRender就需要分别封装Canvas和SVG各自的API，来抹平不同绘制方式在使用时候的差异：
 
 **导入画笔** 
 {% codeblock index.ts lang:typescript %}
@@ -295,7 +296,7 @@ registerPainter('svg', Painter);
 - **Painter模块**: 提供给zrender进行图形绘制
 
 **VML**
-可以看到5.x版本注释了VML(Vector Markup Language)画笔，大致可以将VML理解为SVG的祖先。[VML维基百科](https://zh.wikipedia.org/wiki/VML%E8%AF%AD%E8%A8%80)定义：
+可以看到5.x版本注释了VML(Vector Markup Language)画笔，不了解VML的可以将VML理解为SVG的祖先，用于兼容低版本IE浏览器。[VML维基百科](https://zh.wikipedia.org/wiki/VML%E8%AF%AD%E8%A8%80)定义：
 > Vector Markup Language（VML）是一种XML语言用于绘制矢量图形（vector graphics）。1998年VML建议书由微软、Macromedia等向W3C提出审核。VML遭到拒绝，因为Adobe、Sun等提出了PGML[1]计划书。这两套标准后来合并成更具潜力的SVG。
 
 ## 总结
