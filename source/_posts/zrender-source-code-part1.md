@@ -11,8 +11,8 @@ tags:
 - JavaScript
 language: zh-CN
 toc: true
-cover: /gallery/covers/zrender.png
-thumbnail: /gallery/covers/zrender-thumbnail.png
+cover: /gallery/covers/zrender-part1.png
+thumbnail: /gallery/covers/zrender-part1-thumbnail.png
 ---
 
 ZRender是一个轻量级的Canvas类库，EChart就是在ZRender基础上建立的，给ECharts提供2D绘制能力。我平时的工作是负责BI系统的开发，需要用到图表库进行可视化展示，借此机会来更加深入了解平时用到的工具其底层原理。
