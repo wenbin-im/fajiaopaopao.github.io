@@ -20,7 +20,7 @@ ZRender是一个轻量级的Canvas类库，EChart就是在ZRender基础上建立
 
 ## 简介
 
-ZRender 是二维绘图引擎，它提供 Canvas、SVG、VML 多种渲染方式。ZRender 也是 ECharts 的渲染器。注意：文章的分析是基于ZRender最新版5.x版本进行。
+ZRender 是二维绘图引擎，它提供 Canvas、SVG、VML 多种渲染方式。ZRender 也是 ECharts 的渲染器。注意：文章的分析是基于ZRender 5.x版本进行。
 
 - 文档官网：[https://ecomfe.github.io/zrender-doc/public/](https://ecomfe.github.io/zrender-doc/public/)
 - GitHub主页：[https://github.com/ecomfe/zrender](https://github.com/ecomfe/zrender)
