@@ -67,3 +67,8 @@ deploy:
   secretKey: SecretKey
   bucket: hexo-deployer-cos-1251671242
   region: ap-beijing
+browsersync:
+  logLevel: "warn"
+  ghostMode:
+    scroll: true
+  instanceName: "uniqueString"
