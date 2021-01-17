@@ -1,10 +1,9 @@
 title: ZRender 源码分析 Part2 - ZRender Class
-date: 2021-01-16
+date: 2021-01-15
 categories:
 - 可视化
 - ZRender
 tags:
-- Canvas
 - ZRender
 - ECharts
 - JavaScript
@@ -14,11 +13,11 @@ cover: /gallery/covers/zrender-part2.png
 thumbnail: /gallery/covers/zrender-part2-thumbnail.png
 ---
 
-从[上篇文章](https://www.ifajiao.com/2021/01/02/zrender-source-code-part1/)了解了`ZRender`初始化的工作流程，这篇将继续学习`ZRender`这个基础类的源码设计。
+从[上篇文章](https://www.ifajiao.com/zrender-source-code-part1/)了解了`ZRender`初始化的工作流程，这篇将继续学习`ZRender`这个基础类的源码设计。
 <!-- more -->
 
 ## 简介
-我们之前提到的[初始化 ZRender](https://www.ifajiao.com/2021/01/02/zrender-source-code-part1/#%E5%88%9D%E5%A7%8B%E5%8C%96-ZRender)中，初始化一个ZRender实例并没有到`new`语句，其实是在`init()`中实例化`class ZRender`，然后导出外部调用。
+我们之前提到的[初始化 ZRender](https://www.ifajiao.com/zrender-source-code-part1/#%E5%88%9D%E5%A7%8B%E5%8C%96-ZRender)中，初始化一个ZRender实例并没有到`new`语句，其实是在`init()`中实例化`class ZRender`，然后导出外部调用。
 
 {% codeblock src/zrender.ts lang:typescript %}
 export function init(dom: HTMLElement, opts?: ZRenderInitOpt) {
