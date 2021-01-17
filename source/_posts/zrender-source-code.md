@@ -1,4 +1,4 @@
-title: ZRender 源码分析 Part1 - 准备工作
+title: ZRender设计思路分析
 date: 2021-01-02
 categories:
 - 可视化
@@ -11,8 +11,8 @@ tags:
 - JavaScript
 language: zh-CN
 toc: true
-cover: /gallery/covers/zrender-part1.png
-thumbnail: /gallery/covers/zrender-part1-thumbnail.png
+cover: /gallery/covers/zrender.png
+thumbnail: /gallery/covers/zrender-thumbnail.png
 ---
 
 ZRender是一个轻量级的Canvas类库，EChart就是在ZRender基础上建立的，给ECharts提供2D绘制能力。我平时的工作是负责BI系统的开发，需要用到图表库进行可视化展示，借此机会来更加深入了解平时用到的工具其底层原理。
@@ -111,19 +111,18 @@ src
 
 {% img "box px-0 py-0 ml-auto mr-auto" /assets/2021-01-02/zrender.png 360 '"ZRender" "ZRender"' %}
 
-## 源码分析
+## 入口分析 ⤵️
 
-### 入口分析
 我们可以从`package.json`的`main`字段或者`build/build.js`构建文件了解到，ZRender的入口文件在`/index.ts`中：
 
-{% codeblock index.ts lang:typescript %}
+```typescript
 export * from './src/zrender';
 export * from './src/export';
 
 import './src/canvas/canvas';
 import './src/svg/svg';
 // import './src/vml/vml'; // 5.x注释了对IE VML的支持
-{% endcodeblock %}
+```
 
 上述的两个export语句，是用来初始化ZRender，那么ZRender到底是什么，它是如何工作的，我们来一探究竟吧。
 
@@ -194,7 +193,7 @@ export const version = '5.0.1';
 ### ZRender的export
 除了上面的`src/zrender.ts`模块，入口文件还导出了`src/exports`，具体的代码如下：
 
-{% codeblock src/exports.ts lang:typescript %}
+{% codeblock src/exports.ts lang:typescript >folded %}
 /**
  * Do not mount those modules on 'src/zrender' for better tree shaking.
  */
@@ -258,7 +257,7 @@ export {default as showDebugDirtyRect} from './debug/showDebugDirtyRect';
 
 另外，模块的第一行注释写到：*Do not mount those modules on 'src/zrender' for better tree shaking*，相比在`src/zrender.ts`中一股脑进行导出和调用，`export.ts`导出的都是无副作用的函数，更加有利于构建工具对代码进行静态分析进行Tree Shaking，避免ECharts使用ZRender时，打包了未实际使用的代码。
 
-### ZRender的画笔 🖌
+### Painter画笔注册注册 
 
 前期基本工作已经介绍完了，ZRender是如何将图形绘制出来的呢？
 其实现在前端主流的2D绘制方式有两种：Canvas和SVG，那么ZRender就需要分别封装Canvas和SVG各自的API，来抹平不同绘制方式在使用时候的差异：
@@ -299,9 +298,124 @@ registerPainter('svg', Painter);
 可以看到5.x版本注释了VML(Vector Markup Language)画笔，不了解VML的可以将VML理解为SVG的祖先，用于兼容低版本IE浏览器。[VML维基百科](https://zh.wikipedia.org/wiki/VML%E8%AF%AD%E8%A8%80)定义：
 > Vector Markup Language（VML）是一种XML语言用于绘制矢量图形（vector graphics）。1998年VML建议书由微软、Macromedia等向W3C提出审核。VML遭到拒绝，因为Adobe、Sun等提出了PGML[1]计划书。这两套标准后来合并成更具潜力的SVG。
 
-## 总结
+## new ZRender在干嘛 🧩
 
-至此，ZRender的初始化过程基本介绍完毕，本节只对ZRender的主线进行了粗浅的介绍，后续将一层一层的探索ZRender的秘密，揭开它的神秘面纱。
+### 介绍
+
+我们之前提到的[初始化 ZRender](/zrender-source-code/#初始化-ZRender)中，初始化一个ZRender实例并没有到`new`语句，其实是在`init()`中执行的`class ZRender`，然后供给导出外部调用，代码如下：
+
+{% codeblock src/zrender.ts lang:typescript %}
+export function init(dom: HTMLElement, opts?: ZRenderInitOpt) {
+    const zr = new ZRender(zrUtil.guid(), dom, opts);
+    instances[zr.id] = zr;
+    return zr;
+}
+{% endcodeblock %}
+
+### 给`new ZRender`分类
+因为`class ZRender`内的逻辑较多，下面代码用注释将类似功能分隔开来，这样能够看起来更加清晰。可以看到，其实`zrender`实例包含了以下三大功能，同时也和MVC分层对应：
+
+- **图形存储层**
+  - 管理存储画布内的元素，对应`Storage`相关的逻辑，提供对`Element`的增删查改操作
+- **视图绘制层**
+  - `Painter`绘制图形元素，创建和修改DOM元素，进行`refresh`、`flush`等绘制操作
+- **逻辑控制层**
+  - `Handler`负责`click`、`mouse`、`hover`等事件的处理
+
+{% codeblock src/zrender.ts lang:typescript >folded %}
+class ZRender {
+    id: number // unique id
+    dom: HTMLElement // zrender容器dom
+
+    storage: Storage // mvc model
+    painter: PainterBase // mvc view
+    handler: Handler // mvc control
+    animation: Animation // 动画 TODO:学习
+
+    ...    
+
+    constructor(id: number, dom: HTMLElement, opts?: ZRenderInitOpt) {...}
+    
+
+    // ============= 图形存储相关 =============
+    add(el: Element) {...}
+    remove(el: Element) {...}
+
+
+    // ============= TODO: 待学习 =============
+    configLayer(zLevel: number, config: LayerConfig) {...}
+
+
+    // ============= 背景颜色相关 =============
+    private _backgroundColor: string | GradientObject | PatternObject; -->
+    setBackgroundColor(backgroundColor: string | GradientObject | PatternObject) {...}
+    getBackgroundColor() {...}
+
+
+    // ============= 暗黑模式相关 =============
+    setDarkMode(darkMode: boolean) {...}
+    isDarkMode() {...}
+
+
+    // ============= 刷新绘制相关 =============
+    refreshImmediately(fromInside?: boolean) {...}
+    refresh() {...}
+    flush() {...}
+    private _flush(fromInside?: boolean) {...}
+    setSleepAfterStill(stillFramesCount: number) {...}
+    wakeUp() {...}
+    refreshHover() {...}
+    refreshHoverImmediately() {...}
+    clearAnimation() {...}
+
+
+    // ============= DOM容器相关 =============
+    resize(opts?: { width?: number| string height?: number | string }) {...}
+    getWidth(): number {...}
+    getHeight(): number {...}
+
+
+    // ============= 其他 =============
+    pathToImage(e: Path, dpr: number) {...}
+    setCursorStyle(cursorStyle: string) {...}
+    findHover(x: number, y: number): { target: Displayable, topTarget: Displayable } {...}
+
+
+
+    // ============= 自定义事件相关 =============
+    on<Ctx>(eventName: eventHandler: , context?: Ctx): this {...}
+    off(eventName?: string, eventHandler?: EventCallback<unknown, unknown>) {...}
+    trigger(eventName: string, event?: unknown) {...}
+
+
+    // ============= 卸载、清理相关 =============
+    clear() {...}
+    dispose() {...}
+}
+{% endcodeblock %}
+
+
+
+## Storage分析 🗂️
+
+Storage对应MVC层中的Model，即数据的保存，，具体接口类定义如下：
+
+{% codeblock src/Storage.ts lang:typescript %}
+export default class Storage {
+
+    private _roots: Element[] = []
+
+    private _displayList: Displayable[] = []
+
+    private _displayListLen = 0
+}
+{% endcodeblock %}
+
+- `_roots Element[]`：存储`zrender.add(Element)`添加进来的元素
+- `_displayList: Displayable[]`：存储**可显示的元素**([继承自Displayable的元素](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderarc))，提供给Painter进行渲染
+
+Storage接口类的其他部分逻辑都是是对上面两个数组的增删查改的封装，方便给其他模块调用而已。
+
 
 ## 参考链接
 
