@@ -61,7 +61,8 @@ include: null
 exclude: null
 ignore: null
 theme: icarus
-type: 'git'
+deploy:
+  type: 'git'
   repo: git@github.com:fajiaopaopao/fajiaopaopao.github.io.git
   branch: master
 browsersync:
