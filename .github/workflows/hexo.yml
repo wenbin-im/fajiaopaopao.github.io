@@ -38,7 +38,7 @@ jobs:
       - name: Deploy to COS
         env:
           ACTION_DEPLOY_KEY: ${{ secrets.ACTION_DEPLOY_KEY }}
-        uses: fajiaopaopao/tencent-cos-action@v0.2.0
+        uses: fajiaopaopao/tencent-cos-action@master
         with:
           args: delete -r -f / && upload -r ./public/ /
           secret_id: ${{ secrets.SECRET_ID }}
