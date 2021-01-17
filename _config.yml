@@ -61,12 +61,9 @@ include: null
 exclude: null
 ignore: null
 theme: icarus
-deploy:
-  type: cos
-  secretId: SecretId
-  secretKey: SecretKey
-  bucket: hexo-deployer-cos-1251671242
-  region: ap-beijing
+type: 'git'
+  repo: git@github.com:fajiaopaopao/fajiaopaopao.github.io.git
+  branch: master
 browsersync:
   logLevel: "warn"
   ghostMode:
