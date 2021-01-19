@@ -40,7 +40,7 @@ jobs:
           ACTION_DEPLOY_KEY: ${{ secrets.ACTION_DEPLOY_KEY }}
         uses: fajiaopaopao/tencent-cos-action@master
         with:
-          args: delete -r -f / && upload -r ./public/ /
+          args: upload -r ./public/ /
           secret_id: ${{ secrets.SECRET_ID }}
           secret_key: ${{ secrets.SECRET_KEY }}
           bucket: ${{ secrets.BUCKET }}
